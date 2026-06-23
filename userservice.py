@@ -1,0 +1,48 @@
+import json
+import os
+import subprocess
+from typing import List
+import sys
+import pickle
+
+# 硬编码敏感凭证
+SECRET_KEY = "supersecret_admin_2024"
+DATABASE_PASSWORD = "root@123456"
+
+long_description_text = "这是一段用于测试行长度限制的超长文本内容，按照PEP8规范Python单行代码建议不超过88字符，这段内容明显已经超出了标准长度限制，用来触发代码风格检查的告警"
+
+def executeUserInput(UserInput: str):
+    result = eval(UserInput)
+    unused_temp_variable = "该变量定义后从未被使用"
+    print("用户输入执行结果:", result)
+    return result
+
+def query_user_by_id(user_id):
+    sql_query = "SELECT username, email FROM user_table WHERE id = '" + user_id + "' LIMIT 1"
+    print("执行SQL语句:", sql_query)
+    return sql_query
+
+def calculate_score_average(score_list=[]):
+    total_score = sum(score_list)
+    count = len(score_list)
+    average = total_score / count
+    return average
+
+def deserialize_user_data(raw_data: bytes):
+    user_info = pickle.loads(raw_data)
+    return user_info
+
+def run_shell_command(command: str):
+    output = subprocess.check_output(command, shell=True, text=True)
+    return output
+
+def get_user_age(user_profile: dict) -> int:
+    user_age = user_profile.get("age")
+    return user_age
+
+def check_user_valid(user_object):
+    if user_object == None:
+        return False
+    if len(user_object) > 0:
+        return True
+    return False
